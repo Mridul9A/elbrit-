@@ -1,4 +1,5 @@
 import React from "react";
+import ProductCard from "./ProductCard";
 
 interface ProductItem {
     title: string;
@@ -17,92 +18,50 @@ const products: ProductItem[] = [
 
 const Product: React.FC = () => {
     return (
-        <section className="py-10 px-5 bg-white">
-            <div className="max-w-7xl mx-auto flex flex-col gap-10">
+        <section className="py-6 sm:py-10 px-4 sm:px-5 bg-white">
+            <div className="max-w-7xl mx-auto flex flex-col gap-6 sm:gap-10">
                 {/* First Row: Title + Description, Vitamin C, Vitamin B3 */}
-                <div className="flex flex-wrap items-start justify-start gap-6">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start justify-start gap-6">
                     {/* Title and Description */}
-                    <div className="flex-1 min-w-[300px] max-w-[500px] text-center md:text-left">
-                        <h3 className="text-sm font-bold text-blue-800 uppercase tracking-widest mb-2">Ingredients</h3>
-                        <h2 className="text-4xl font-extrabold text-gray-800 mb-4">Better Ingredients</h2>
-                        <p className="text-gray-600 text-lg">
+                    <div className="w-full sm:flex-1 sm:min-w-[300px] sm:max-w-[500px] text-center sm:text-left px-4 sm:px-0">
+                        <h3 className="text-xs sm:text-sm font-bold text-blue-800 uppercase tracking-widest mb-2">
+                            Ingredients
+                        </h3>
+                        <h2 className="text-2xl sm:text-4xl font-extrabold text-gray-800 mb-3 sm:mb-4">
+                            Better Ingredients
+                        </h2>
+                        <p className="text-base sm:text-lg text-gray-600">
                             Only the best when you choose products offered on our platform - high-quality ingredients for high-quality products!
                         </p>
                     </div>
 
                     {/* Vitamin C and Vitamin B3 */}
-                    {products.slice(0, 2).map((product, index) => (
-                        <div
-                            key={index}
-                            className="flex-1 min-w-[250px] max-w-[300px] p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 text-start relative"
-                            style={{
-                                backgroundImage: `url(${product.background})`,
-                                backgroundSize: "contain",
-                                backgroundRepeat: "no-repeat",
-                                backgroundPosition: "center bottom",
-                                minHeight: "250px",
-                                backgroundColor: "#EAF5FF",
-                            }}
-                        >
-                            <div className="relative z-10 text-gray-900">
-                                <h3 className="text-lg font-bold mb-1">{product.title}</h3>
-                                <p className="text-sm mb-4">{product.description}</p>
-                                <a
-                                    href={product.link}
-                                    className="text-blue-600 font-semibold text-sm hover:underline"
-                                >
-                                    SEE MORE
-                                </a>
-                            </div>
-                        </div>
-                    ))}
+                    <div className="w-full sm:w-auto flex flex-col sm:flex-row gap-6">
+                        {products.slice(0, 2).map((product, index) => (
+                            <ProductCard key={index} {...product} />
+                        ))}
+                    </div>
                 </div>
 
                 {/* Second Row: Magnesium, Hyaluronic Acid, Lactobacillus */}
-                <div className="flex flex-wrap items-start justify-center gap-6">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                     {/* Products */}
-                    {products.slice(2).map((product, index) => (
-                        <div
-                            key={index}
-                            className="flex-1 min-w-[250px] max-w-[300px] p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 text-start relative"
-                            style={{
-                                backgroundImage: `url(${product.background})`,
-                                backgroundSize: "contain",
-                                backgroundRepeat: "no-repeat",
-                                backgroundPosition: "center bottom",
-                                minHeight: "250px",
-                                backgroundColor: "#EAF5FF",
-                            }}
-                        >
-                            <div className="relative z-10 text-gray-900">
-                                <h3 className="text-lg font-bold mb-1">{product.title}</h3>
-                                <p className="text-sm mb-4">{product.description}</p>
-                                <a
-                                    href={product.link}
-                                    className="text-blue-600 font-semibold text-sm hover:underline"
-                                >
-                                    SEE MORE
-                                </a>
-                            </div>
-                        </div>
-                    ))}
+                    <div className="w-full sm:w-auto flex flex-col sm:flex-row gap-6 flex-wrap justify-center">
+                        {products.slice(2).map((product, index) => (
+                            <ProductCard key={index} {...product} />
+                        ))}
+                    </div>
 
                     {/* Placeholder Image */}
                     <div
-  className="flex-1 text-center relative"
-  style={{
-    backgroundImage: `url('/Assets/img101.png')`,
-    backgroundSize: "contain",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
-    minHeight: "250px",
-    minWidth:'0',
-    margin: "0", // Remove margin
-    padding: "0", // Remove padding
-  }}
-></div>
-
-
+                        className="w-full sm:flex-1 sm:min-w-[200px] h-48 sm:h-64 relative mt-6 sm:mt-0"
+                        style={{
+                            backgroundImage: `url('/Assets/img101.png')`,
+                            backgroundSize: "contain",
+                            backgroundRepeat: "no-repeat",
+                            backgroundPosition: "center",
+                        }}
+                    />
                 </div>
             </div>
         </section>

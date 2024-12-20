@@ -1,72 +1,93 @@
 import Image from "next/image";
 
 const Hero = () => {
+  const features = [
+    {
+      icon: "/Assets/vitamin.png",
+      title: "Vitamins",
+      description: "Increased Vitamins and minerals in your diet",
+    },
+    {
+      icon: "/Assets/weight-loss.png",
+      title: "Weight Loss",
+      description: "Find scientifically proven solutions",
+    },
+    {
+      icon: "/Assets/functional-foods.png",
+      title: "Functional Foods",
+      description: "From protein powders to baby formula",
+    },
+  ];
+
   return (
-    <section className="relative bg-blue-50 py-8">
-      <div className="relative">
-        <h1 className="text-7xl lg:text-9xl font-extrabold text-blue-900 text-center leading-relaxed mb-6">
-          Essential <span className="text-blue-900">Essential</span>
-        </h1>
+    <div className="relative bg-blue-50 min-h-screen">
+      <div className="container mx-auto px-4">
+        {/* Main Content */}
+        <div className="pt-8 md:pt-12 lg:pt-16">
+          {/* Heading */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl xl:text-9xl font-extrabold text-blue-900 text-center">
+            Essential <br className="md:hidden" />
+            <span className="text-blue-900">Essential</span>
+          </h1>
 
-        <div className="container mx-auto px-4 py-0 lg:py-20 flex flex-wrap items-center justify-between">
-          <div className="w-full lg:w-1/3 space-y-6 text-center lg:text-left">
-            <p className="text-gray-600 text-lg">
-              Online Medical Supplies
-              <br />
-              <strong>Get Your Vitamins & Minerals</strong>
-            </p>
-            <button className="bg-[#004B50] n text-white px-6 py-2 rounded-full border-2 border-[#004B50]  hover:bg-white hover:text-[#004B50]  transition">
-              EXPLORE
-            </button>
-          </div>
-
-          <div className="w-full lg:w-1/3 flex justify-center my-8 lg:my-0">
-            <div className="w-72 h-72 lg:w-96 lg:h-96 rounded-[50px] relative flex justify-center items-center">
-              <Image
-                src="/Assets/f2-1.png.png"
-                alt="Probiotics Bottle"
-                width={240}
-                height={240}
-                className="absolute"
-                priority
-              />
+          {/* Three Column Layout */}
+          <div className="mt-8 md:mt-12 lg:mt-16 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+            {/* Left Column */}
+            <div className="text-center lg:text-left flex flex-col items-center lg:items-start gap-6">
+              <p className="text-gray-600 text-lg sm:text-xl">
+                Online Medical Supplies
+                <br />
+                <strong>Get Your Vitamins & Minerals</strong>
+              </p>
+              <button className="bg-[#004B50] text-white px-8 py-3 rounded-full border-2 border-[#004B50] hover:bg-white hover:text-[#004B50] transition-colors duration-300 text-lg">
+                EXPLORE
+              </button>
             </div>
-          </div>
 
-          <div className="w-full lg:w-1/3 space-y-6 hidden lg:block">
-            {[
-              {
-                icon: "/Assets/vitamin.png",
-                title: "Vitamins",
-                description: "Increased Vitamins and minerals in your diet",
-              },
-              {
-                icon: "/Assets/weight-loss.png",
-                title: "Weight Loss",
-                description: "Find scientifically proven solutions",
-              },
-              {
-                icon: "/Assets/functional-foods.png",
-                title: "Functional Foods",
-                description: "From protein powders to baby formula",
-              },
-            ].map((item, index) => (
-              <div key={index} className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-[#004B50]  rounded-full flex items-center justify-center">
-                  <Image src={item.icon} alt={item.title} width={24} height={24} />
-                </div>
-                <div>
-                  <h3 className="font-bold text-blue-900">{item.title}</h3>
-                  <p className="text-sm text-gray-600">{item.description}</p>
-                </div>
+            {/* Center Column - Image */}
+            <div className="flex justify-center items-center">
+              <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
+                <Image
+                  src="/Assets/f2-1.png.png"
+                  alt="Probiotics Bottle"
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </div>
-            ))}
+            </div>
+
+            {/* Right Column - Features */}
+            <div className="space-y-6 md:space-y-8">
+              {features.map((item, index) => (
+                <div 
+                  key={index} 
+                  className="flex items-center gap-4 bg-white/50 p-4 rounded-2xl hover:bg-white/70 transition-colors duration-300"
+                >
+                  <div className="w-12 h-12 md:w-14 md:h-14 bg-[#004B50] rounded-full flex items-center justify-center flex-shrink-0">
+                    <Image 
+                      src={item.icon} 
+                      alt={item.title} 
+                      width={24} 
+                      height={24} 
+                      className="w-6 h-6 md:w-7 md:h-7"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-blue-900 text-lg">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-600">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-
-      
-    </section>
+    </div>
   );
 };
 

@@ -65,7 +65,8 @@ export default function Blog() {
         return blogs.slice(startIndex, startIndex + itemsPerColumn);
     };
 
-    const getImageHeights = (columnIndex: number, imageIndex: number): string => {
+    const getImageHeights = (columnIndex: number, imageIndex: number, isMobile: boolean): string => {
+        if (isMobile) return 'h-64'; // Fixed height for mobile
         if (columnIndex === 0 || columnIndex === 2) {
             return imageIndex === 0 ? 'h-[70%]' : 'h-[30%]';
         }
@@ -73,18 +74,45 @@ export default function Blog() {
     };
 
     return (
-        <section className="py-12 bg-white">
+        <section className="py-8 md:py-12 bg-white">
             <div className="container mx-auto px-4 text-gray-800">
-                <h6 className="mb-4 text-center text-gray-800">Our Blog</h6>
-                <h2 className="text-3xl font-bold mb-8 text-center">Latest News</h2>
+                <h6 className="mb-3 md:mb-4 text-center text-gray-800 text-sm md:text-base">Our Blog</h6>
+                <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center">Latest News</h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 h-[600px]">
+                {/* Mobile View */}
+                <div className="md:hidden flex flex-col gap-4">
+                    {blogs.map((blog) => (
+                        <div key={blog.id} className="relative h-64">
+                            <Image
+                                src={blog.image}
+                                alt={blog.title}
+                                fill
+                                className="object-cover rounded-lg"
+                            />
+                            <div className="absolute inset-x-0 top-0 p-4 flex flex-col gap-3">
+                                <div className="flex justify-start mb-2">
+                                    <span className="flex justify-start bg-blue-900 text-white px-3 py-1 rounded-tr-xl rounded-br-xl text-sm">
+                                        {blog.date}
+                                    </span>
+                                </div>
+                                <div className="rounded-lg p-3">
+                                    <h3 className="text-base font-semibold text-white line-clamp-2">
+                                        {blog.title}
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Desktop View */}
+                <div className="hidden md:grid md:grid-cols-4 gap-4 h-[600px]">
                     {[0, 1, 2, 3].map((columnIndex) => (
                         <div key={columnIndex} className="flex flex-col gap-4 h-full">
                             {getColumnBlogs(columnIndex).map((blog, index) => (
                                 <div
                                     key={blog.id}
-                                    className={`relative ${getImageHeights(columnIndex, index)}`}
+                                    className={`relative ${getImageHeights(columnIndex, index, false)}`}
                                 >
                                     <Image
                                         src={blog.image}
@@ -93,12 +121,12 @@ export default function Blog() {
                                         className="object-cover rounded-lg"
                                     />
                                     <div className="absolute inset-x-0 top-0 p-4 flex flex-col gap-3">
-                                        <div className="flex justify-start mb-3 px-0 py-0">
+                                        <div className="flex justify-start mb-3">
                                             <span className="flex justify-start bg-blue-900 text-white px-4 py-1 rounded-tr-xl rounded-br-xl text-sm font-medium">
                                                 {blog.date}
                                             </span>
                                         </div>
-                                        <div className=" rounded-lg p-3">
+                                        <div className="rounded-lg p-3">
                                             <h3 className="text-lg font-semibold text-white line-clamp-2">
                                                 {blog.title}
                                             </h3>
